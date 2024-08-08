@@ -27,13 +27,13 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     }
 
     @ExceptionHandler(UnsupportedOperationException.class)
-    public final ResponseEntity<ExceptionResponse> handlebadRequestException(Exception ex, WebRequest request){
+    public final ResponseEntity<ExceptionResponse> handleNotFoundRequestException(Exception ex, WebRequest request){
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
                 ex.getMessage(),
                 request.getDescription(false)
         );
-        return new ResponseEntity<ExceptionResponse>(response, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<ExceptionResponse>(response, HttpStatus.NOT_FOUND);
     }
 
 

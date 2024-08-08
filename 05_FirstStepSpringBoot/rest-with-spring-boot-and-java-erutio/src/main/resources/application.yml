@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: "spring-boot-with-erutio"
+  datasource:
+    url: jdbc:mysql://localhost:3309/rest_with_spring_erutio?useTimezone=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+    open-in-view: false

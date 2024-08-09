@@ -1,5 +1,6 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.controller;
 
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonVO;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.model.Person;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,23 +17,23 @@ public class PersonController {
     public PersonService personService;
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable("id") Long id) {
+    public PersonVO findById(@PathVariable("id") Long id) {
         return personService.findById(id);
     }
 
     @GetMapping
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         return personService.findAll();
     }
 
     @PostMapping
-    public Person create(@RequestBody Person person) {
+    public PersonVO create(@RequestBody PersonVO person) {
         return personService.create(person);
     }
 
     @PutMapping("/{id}")
-    public Person update(@PathVariable("id") Long id,
-                         @RequestBody Person person) {
+    public PersonVO update(@PathVariable("id") Long id,
+                         @RequestBody PersonVO person) {
         return personService.update(id, person);
     }
 

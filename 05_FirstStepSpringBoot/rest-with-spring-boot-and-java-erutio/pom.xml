@@ -29,6 +29,7 @@
     </scm>
     <properties>
         <java.version>22</java.version>
+        <dozer.version>7.0.0</dozer.version>
     </properties>
     <dependencies>
         <dependency>
@@ -43,6 +44,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.dozermapper</groupId>
+            <artifactId>dozer-core</artifactId>
+            <version>${dozer.version}</version>
         </dependency>
 
         <dependency>

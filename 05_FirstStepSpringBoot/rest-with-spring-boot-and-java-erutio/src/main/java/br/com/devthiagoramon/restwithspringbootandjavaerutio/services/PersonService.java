@@ -1,6 +1,8 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.services;
 
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonVO;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.exceptions.ResourceNotFoundException;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.mapper.DozerMapper;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.model.Person;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +24,27 @@ public class PersonService {
         return person;
     }
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         logger.info("Finding all persons!");
-        return repository.findAll();
+        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
     }
 
-    public Person findById(Long id) {
+    public PersonVO findById(Long id) {
         logger.info("Finding one person!");
-        return repository.findById(id)
-                         .orElseThrow(() -> new ResourceNotFoundException("Can't find the user by id"));
+        Person entity = repository.findById(id)
+                                  .orElseThrow(() -> new ResourceNotFoundException("Can't find the user by id"));
+        return DozerMapper.parseObject(entity, PersonVO.class);
     }
 
-    public Person create(Person person) {
+    public PersonVO create(PersonVO personVO) {
         logger.info("Creating person!");
-        return repository.save(person);
+
+        Person person = DozerMapper.parseObject(personVO, Person.class);
+        Person save = repository.save(person);
+        return DozerMapper.parseObject(save, PersonVO.class);
     }
 
-    public Person update(Long id, Person personUpdated) {
+    public PersonVO update(Long id, PersonVO personUpdated) {
         logger.info("Update person id:" + id);
         Person person = repository.findById(id)
                                   .orElseThrow(() -> new ResourceNotFoundException("Can't find the user by id"));
@@ -46,7 +52,8 @@ public class PersonService {
         person.setLastName(personUpdated.getLastName());
         person.setAddress(personUpdated.getAddress());
         person.setGender(personUpdated.getGender());
-        return repository.save(person);
+        Person editedEntity = repository.save(person);
+        return DozerMapper.parseObject(editedEntity, PersonVO.class);
     }
 
     public void delete(Long id) {

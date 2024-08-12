@@ -85,4 +85,15 @@ public class Person implements Serializable {
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, address, gender);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
+    }
 }

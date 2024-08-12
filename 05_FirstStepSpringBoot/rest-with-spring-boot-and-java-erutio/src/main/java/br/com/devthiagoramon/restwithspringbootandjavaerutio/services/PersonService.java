@@ -1,8 +1,8 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.services;
 
-import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonVO;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonDTO;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.exceptions.ResourceNotFoundException;
-import br.com.devthiagoramon.restwithspringbootandjavaerutio.mapper.DozerMapper;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.mapper.PersonMapper;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.model.Person;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +24,27 @@ public class PersonService {
         return person;
     }
 
-    public List<PersonVO> findAll() {
+    public List<PersonDTO> findAll() {
         logger.info("Finding all persons!");
-        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+        return PersonMapper.INSTANCE.listPersonToDTOPerson(repository.findAll());
     }
 
-    public PersonVO findById(Long id) {
+    public PersonDTO findById(Long id) {
         logger.info("Finding one person!");
         Person entity = repository.findById(id)
                                   .orElseThrow(() -> new ResourceNotFoundException("Can't find the user by id"));
-        return DozerMapper.parseObject(entity, PersonVO.class);
+        return PersonMapper.INSTANCE.personToPersonDTO(entity);
     }
 
-    public PersonVO create(PersonVO personVO) {
+    public PersonDTO create(PersonDTO personDTO) {
         logger.info("Creating person!");
 
-        Person person = DozerMapper.parseObject(personVO, Person.class);
+        Person person = PersonMapper.INSTANCE.personDTOTOPerson(personDTO);
         Person save = repository.save(person);
-        return DozerMapper.parseObject(save, PersonVO.class);
+        return PersonMapper.INSTANCE.personToPersonDTO(save);
     }
 
-    public PersonVO update(Long id, PersonVO personUpdated) {
+    public PersonDTO update(Long id, PersonDTO personUpdated) {
         logger.info("Update person id:" + id);
         Person person = repository.findById(id)
                                   .orElseThrow(() -> new ResourceNotFoundException("Can't find the user by id"));
@@ -53,7 +53,7 @@ public class PersonService {
         person.setAddress(personUpdated.getAddress());
         person.setGender(personUpdated.getGender());
         Person editedEntity = repository.save(person);
-        return DozerMapper.parseObject(editedEntity, PersonVO.class);
+        return PersonMapper.INSTANCE.personToPersonDTO(editedEntity);
     }
 
     public void delete(Long id) {

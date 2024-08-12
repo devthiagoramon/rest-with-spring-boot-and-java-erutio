@@ -1,11 +1,9 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonVO implements Serializable {
+public class PersonDTO implements Serializable {
 
     private Long id;
 
@@ -17,11 +15,11 @@ public class PersonVO implements Serializable {
 
     private String gender;
 
-    public PersonVO() {
+    public PersonDTO() {
     }
 
-    public PersonVO(Long id, String firstName, String lastName,
-                    String address, String gender) {
+    public PersonDTO(Long id, String firstName, String lastName,
+                     String address, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -73,12 +71,23 @@ public class PersonVO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonVO person = (PersonVO) o;
+        PersonDTO person = (PersonDTO) o;
         return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, address, gender);
+    }
+
+    @Override
+    public String toString() {
+        return "PersonDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.services;
 
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonDTO;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v2.PersonDTOV2;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.exceptions.ResourceNotFoundException;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.mapper.PersonMapper;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.model.Person;
@@ -44,6 +45,13 @@ public class PersonService {
         return PersonMapper.INSTANCE.personToPersonDTO(save);
     }
 
+    public PersonDTOV2 createV2(PersonDTOV2 personDTOV2) {
+        logger.info("Creating person!");
+        Person person = PersonMapper.INSTANCE.personDTOV2toPerson(personDTOV2);
+//        Person save = repository.save(person);
+        return PersonMapper.INSTANCE.persontoPersonDTOV2(person);
+    }
+
     public PersonDTO update(Long id, PersonDTO personUpdated) {
         logger.info("Update person id:" + id);
         Person person = repository.findById(id)
@@ -62,6 +70,5 @@ public class PersonService {
                                   .orElseThrow(() -> new ResourceNotFoundException("Can't find the user by id"));
         repository.delete(person);
     }
-
 
 }

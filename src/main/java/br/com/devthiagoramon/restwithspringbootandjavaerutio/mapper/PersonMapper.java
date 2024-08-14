@@ -14,18 +14,20 @@ public interface PersonMapper {
 
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
-    @Mapping(target = ".")
+    @Mapping(target = ".", source = ".", ignore = true)
     PersonDTO personToPersonDTO(Person person);
-    @Mapping(target = ".")
+
+    @Mapping(target = ".", source = ".", ignore = true)
     Person personDTOTOPerson(PersonDTO personDTO);
-    @Mapping(target = ".")
+
+    @Mapping(target = ".", source = ".", ignore = true)
     List<PersonDTO> listPersonToDTOPerson(List<Person> personList);
 
-    @Mapping(target = ".")
+    @Mapping(target = ".", source = ".", ignore = true)
     PersonDTOV2 persontoPersonDTOV2(Person person);
-    @Mapping(target = ".")
-    Person personDTOV2toPerson(PersonDTOV2 personDTOV2);
 
+    @Mapping(target = ".", source = ".", ignore = true)
+    Person personDTOV2toPerson(PersonDTOV2 personDTOV2);
 
 
 }

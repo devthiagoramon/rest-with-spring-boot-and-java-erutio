@@ -1,6 +1,7 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.exceptions.handler;
 
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.exceptions.ExceptionResponse;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.exceptions.RequestObjectNullException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,6 +36,16 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
         return new ResponseEntity<ExceptionResponse>(response, HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(RequestObjectNullException.class)
+    public final ResponseEntity<ExceptionResponse> handleBadRequestException(Exception ex, WebRequest request){
+        ExceptionResponse response = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<ExceptionResponse>(response, HttpStatus.BAD_REQUEST);
+    }
+
 
 
 }

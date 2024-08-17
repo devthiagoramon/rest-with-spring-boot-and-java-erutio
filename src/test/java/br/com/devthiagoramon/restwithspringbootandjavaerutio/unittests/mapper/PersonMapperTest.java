@@ -13,10 +13,10 @@ public interface PersonMapperTest {
 
     PersonMapperTest INSTANCE = Mappers.getMapper(PersonMapperTest.class);
 
-    @Mapping(target = ".", source = ".")
+    @Mapping(target = "key", source = "id")
     PersonDTO personToPersonDTO(Person person);
 
-    @Mapping(target = ".", source = ".")
+    @Mapping(target = "id", source = "key")
     Person personDTOTOPerson(PersonDTO personDTO);
 
     @Mapping(target = ".", source = ".")

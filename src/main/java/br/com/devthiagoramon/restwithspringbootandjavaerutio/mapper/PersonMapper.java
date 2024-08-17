@@ -14,19 +14,19 @@ public interface PersonMapper {
 
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
-    @Mapping(target = ".", source = ".", ignore = true)
+    @Mapping(target = "key", source = "id")
     PersonDTO personToPersonDTO(Person person);
 
-    @Mapping(target = ".", source = ".", ignore = true)
+    @Mapping(target = "id", source = "key")
     Person personDTOTOPerson(PersonDTO personDTO);
 
-    @Mapping(target = ".", source = ".", ignore = true)
+    @Mapping(target = "key", source = "id")
     List<PersonDTO> listPersonToDTOPerson(List<Person> personList);
 
-    @Mapping(target = ".", source = ".", ignore = true)
+    @Mapping(target = ".", source = ".")
     PersonDTOV2 persontoPersonDTOV2(Person person);
 
-    @Mapping(target = ".", source = ".", ignore = true)
+    @Mapping(target = ".", source = ".")
     Person personDTOV2toPerson(PersonDTOV2 personDTOV2);
 
 

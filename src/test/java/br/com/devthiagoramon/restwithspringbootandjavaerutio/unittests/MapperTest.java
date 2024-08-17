@@ -1,6 +1,7 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.unittests;
 
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonDTO;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.mapper.PersonMapperCustomImpl;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.model.Person;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.unittests.mapper.PersonMapperTest;
 import org.assertj.core.api.WithAssertions;
@@ -20,7 +21,7 @@ public class MapperTest implements WithAssertions {
     public void convertToDTO() {
         Person person = mockPerson();
         PersonDTO personDTO = PersonMapperTest.INSTANCE.personToPersonDTO(person);
-        assertThat(personDTO.getId()).isEqualTo(person.getId());
+        assertThat(personDTO.getKey()).isEqualTo(person.getId());
         assertThat(personDTO.getFirstName()).isEqualTo(person.getFirstName());
     }
 
@@ -30,7 +31,7 @@ public class MapperTest implements WithAssertions {
         Person person = mockPerson();
         PersonDTO personDTO = PersonMapperTest.INSTANCE.personToPersonDTO(person);
         Person person2 = PersonMapperTest.INSTANCE.personDTOTOPerson(personDTO);
-        assertThat(person2.getId()).isEqualTo(personDTO.getId());
+        assertThat(person2.getId()).isEqualTo(personDTO.getKey());
         assertThat(person2.getFirstName()).isEqualTo(personDTO.getFirstName());
     }
 
@@ -48,16 +49,16 @@ public class MapperTest implements WithAssertions {
         // Get the second element and convert to DTO
         Person p2 = personArrayList.get(1);
         PersonDTO person2DTO = PersonMapperTest.INSTANCE.personToPersonDTO(p2);
-        assertThat(person2DTO.getId()).isEqualTo(p2.getId());
+        assertThat(person2DTO.getKey()).isEqualTo(p2.getId());
 
         // Transform to list dto
-        ArrayList<PersonDTO> personDTOArrayList = (ArrayList<PersonDTO>) PersonMapperTest.INSTANCE.listPersonToDTOPerson(personArrayList);
+        ArrayList<PersonDTO> personDTOArrayList = (ArrayList<PersonDTO>) PersonMapperCustomImpl.toListPersonDTO(personArrayList);
 
 
         // Get the second element from array dto and convert to DTO
         PersonDTO p2DTO = personDTOArrayList.get(1);
         Person person2 = PersonMapperTest.INSTANCE.personDTOTOPerson(p2DTO);
-        assertThat(person2.getId()).isEqualTo(p2DTO.getId());
+        assertThat(person2.getId()).isEqualTo(p2DTO.getKey());
 
         System.out.println("Person");
         for (Person person:

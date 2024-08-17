@@ -1,11 +1,17 @@
 package br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class PersonDTO implements Serializable {
+@JsonPropertyOrder({"id", "firstName", "lastName", "address", "gender"})
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 
-    private Long id;
+    @JsonProperty("id")
+    private Long key;
 
     private String firstName;
 
@@ -18,21 +24,21 @@ public class PersonDTO implements Serializable {
     public PersonDTO() {
     }
 
-    public PersonDTO(Long id, String firstName, String lastName,
+    public PersonDTO(Long key, String firstName, String lastName,
                      String address, String gender) {
-        this.id = id;
+        this.key = key;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
     }
 
-    public Long getId() {
-        return id;
+    public Long getKey() {
+        return key;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKey(Long id) {
+        this.key = id;
     }
 
     public String getFirstName() {
@@ -71,23 +77,13 @@ public class PersonDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO person = (PersonDTO) o;
-        return Objects.equals(id, person.id) && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(address, person.address) && Objects.equals(gender, person.gender);
+        if (!super.equals(o)) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(key, personDTO.key) && Objects.equals(firstName, personDTO.firstName) && Objects.equals(lastName, personDTO.lastName) && Objects.equals(address, personDTO.address) && Objects.equals(gender, personDTO.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, address, gender);
-    }
-
-    @Override
-    public String toString() {
-        return "PersonDTO{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
+        return Objects.hash(super.hashCode(), key, firstName, lastName, address, gender);
     }
 }

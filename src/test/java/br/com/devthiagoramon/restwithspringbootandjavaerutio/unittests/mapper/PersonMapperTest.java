@@ -13,12 +13,13 @@ public interface PersonMapperTest {
 
     PersonMapperTest INSTANCE = Mappers.getMapper(PersonMapperTest.class);
 
-    @Mapping(target = ".")
+    @Mapping(target = ".", source = ".")
     PersonDTO personToPersonDTO(Person person);
 
-    @Mapping(target = ".")
+    @Mapping(target = ".", source = ".")
     Person personDTOTOPerson(PersonDTO personDTO);
-    @Mapping(target = ".")
+
+    @Mapping(target = ".", source = ".")
     List<PersonDTO> listPersonToDTOPerson(List<Person> personList);
 
 }

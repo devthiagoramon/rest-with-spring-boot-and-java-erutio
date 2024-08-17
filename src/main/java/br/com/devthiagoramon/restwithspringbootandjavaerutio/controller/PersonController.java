@@ -3,7 +3,9 @@ package br.com.devthiagoramon.restwithspringbootandjavaerutio.controller;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v1.PersonDTO;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.data.vo.v2.PersonDTOV2;
 import br.com.devthiagoramon.restwithspringbootandjavaerutio.services.PersonService;
+import br.com.devthiagoramon.restwithspringbootandjavaerutio.util.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,27 +18,48 @@ public class PersonController {
     @Autowired
     public PersonService personService;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}",
+                produces = {MediaType.APPLICATION_YML,
+                            MediaType.APPLICATION_JSON,
+                            MediaType.APPLICATION_XML})
     public PersonDTO findById(@PathVariable("id") Long id) {
         return personService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping(value = "", produces = {MediaType.APPLICATION_YML,
+                                        MediaType.APPLICATION_JSON,
+                                        MediaType.APPLICATION_XML,})
     public List<PersonDTO> findAll() {
         return personService.findAll();
     }
 
-    @PostMapping
+    @PostMapping(produces = {MediaType.APPLICATION_YML,
+                             MediaType.APPLICATION_JSON,
+                             MediaType.APPLICATION_XML},
+                 consumes = {MediaType.APPLICATION_YML,
+                             MediaType.APPLICATION_JSON,
+                             MediaType.APPLICATION_XML})
     public PersonDTO create(@RequestBody PersonDTO person) {
         return personService.create(person);
     }
 
-    @PostMapping("/v2")
+    @PostMapping(value = "/v2", produces = {MediaType.APPLICATION_YML,
+                                            MediaType.APPLICATION_JSON,
+                                            MediaType.APPLICATION_XML},
+                 consumes = {MediaType.APPLICATION_YML,
+                             MediaType.APPLICATION_JSON,
+                             MediaType.APPLICATION_XML})
     public PersonDTOV2 createV2(@RequestBody PersonDTOV2 person) {
         return personService.createV2(person);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/{id}",
+                produces = {MediaType.APPLICATION_YML,
+                            MediaType.APPLICATION_JSON,
+                            MediaType.APPLICATION_XML},
+                consumes = {MediaType.APPLICATION_YML,
+                            MediaType.APPLICATION_JSON,
+                            MediaType.APPLICATION_XML})
     public PersonDTO update(@PathVariable("id") Long id,
                             @RequestBody PersonDTO person) {
         return personService.update(id, person);

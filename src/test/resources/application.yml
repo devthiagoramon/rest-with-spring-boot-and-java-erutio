@@ -1,13 +1,12 @@
+server:
+  port: 8888
 cors:
   origin-patterns: https://erudio.com.br,http://localhost:8080,http://localhost:3000
 spring:
   application:
     name: "spring-boot-with-erutio"
   datasource:
-    url: jdbc:mysql://localhost:3309/rest_with_spring_erutio?useTimezone=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
   jpa:
     hibernate:
       ddl-auto: none
